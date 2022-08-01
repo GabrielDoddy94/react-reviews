@@ -8,6 +8,27 @@ export function Review() {
 
   const { name, job, image, text } = people[index];
 
+  function checkNumber(number: number) {
+    if (number > people.length - 1) return 0;
+    if (number < 0) return people.length - 1;
+
+    return number;
+  }
+
+  function nextPerson() {
+    setIndex(prevState => {
+      const newIndex = prevState + 1;
+      return checkNumber(newIndex);
+    });
+  }
+
+  function prevPerson() {
+    setIndex(prevState => {
+      const newIndex = prevState - 1;
+      return checkNumber(newIndex);
+    });
+  }
+
   return (
     <article className="review">
       <div className="img-container">
@@ -22,10 +43,10 @@ export function Review() {
       <p className="info">{text}</p>
 
       <div className="button-container">
-        <button className="prev-btn">
+        <button className="prev-btn" onClick={prevPerson}>
           <FaChevronLeft />
         </button>
-        <button className="next-btn">
+        <button className="next-btn" onClick={nextPerson}>
           <FaChevronRight />
         </button>
       </div>
